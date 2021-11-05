@@ -1,0 +1,110 @@
+@import './styles/custom.scss';
+body {
+  margin: 50px;
+  background-color:#ddd;
+}
+
+h1 {
+  text-align: center;
+  font-size: 32px;
+  color: #666;
+}
+.wrap {
+  width: 500px;
+  .groupRow {
+    background-color: #fff;
+    padding: 10px;
+    .group {
+      border-bottom: 2px solid;
+      .circle {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        margin: 5px 10px;
+      }
+    }
+
+  }
+}
+.todoItemWrap {
+  width: 500px;
+  background-color: #fff;
+}
+#todoItem {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  margin: 0 15px;
+  font-size: 15px;
+  color: #333;
+  
+  .stared {
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+  }
+  .fcnBtns {
+    position: relative;
+    .moreBtnDetail {
+      position: absolute;
+      right: 40px;
+      top: 0;
+    }
+    .moreBtn {
+      width: 30px;
+      height: 25px;
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  .delBtn {
+    width: 40px;
+    height: 40px;
+    // margin: 10px 0;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    color: #999;
+    font-size: 15px;
+  }
+  .starBtn {
+    width: 40px;
+    height: 40px;
+    // margin: 10px 0;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    color: rgb(216, 214, 122);
+    font-size: 15px;
+  }
+}
+.addBtn {
+  width: 100px;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+input {
+  padding: 0 15px;
+}
+.noItems {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
