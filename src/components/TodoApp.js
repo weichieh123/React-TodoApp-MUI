@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TodoAddForm from './TodoAddForm'
 import TodoList from './TodoList'
 import { makeStyles } from '@material-ui/core/styles'
@@ -8,19 +8,34 @@ import deepOrange from '@material-ui/core/colors/deepOrange'
 import green from '@material-ui/core/colors/green'
 import red from '@material-ui/core/colors/red'
 import star from '../images/star.svg'
+import _ from 'lodash'
 
 function TodoApp() {
   const [todoInput, setTodoInput] = useState('')
+  const [filteredTodos, setFilteredTodos] = useState([])
 
-  /* 
-    grey, cyan, deepOrange, green, red
-  */
+  // grey, cyan, deepOrange, green, red
   const groupType = [
-    grey[400],
-    cyan[300],
-    deepOrange[300],
-    green[300],
-    red[300],
+      {
+        group: 'grey',
+        color: grey[400],
+      },
+      {
+        group: 'cyan',
+        color: cyan[300],
+      },
+      {
+        group: 'deepOrange',
+        color: deepOrange[300],
+      },
+      {
+        group: 'green',
+        color: green[300],
+      },
+      {
+        group: 'red',
+        color: red[300],
+      }, 
   ]
   const useStyles = makeStyles((theme) => ({
     grey: {
@@ -55,20 +70,18 @@ function TodoApp() {
     },
     checked: {},
   }))
-
   const classes = useStyles()
 
   // 【 0-待辨事項每個的物件值】
   // todo = {
   //   id: 1,
   //   text: 'No1',
-  //   group: 'primary',
+  //   group: 'grey/cyan/deepOrange/green/red',
   //   completed: false,
   //   edited: false,
   //   star: false,
   //   showBtn: false,
   // },
-
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -117,6 +130,22 @@ function TodoApp() {
     },
   ])
 
+
+
+  const handelFilter = (filterGroup, todos) => {
+      if(filterGroup==='star'){
+        setFilteredTodos(_.filter(todos, {star: true}))
+      }
+      else {
+          setFilteredTodos(_.filter(todos, {group: filterGroup}))
+      }
+  }
+
+  useEffect(() => {
+    console.log('filter',filteredTodos)
+  }, [filteredTodos])
+  
+  
   const handleUpdate = (id, update, editedText) => {
     const newTodos = [...todos]
 
@@ -180,7 +209,7 @@ function TodoApp() {
     const newTodoItem = {
       id: idNum + 1,
       text: todoInput,
-      group: 'red',
+      group: 'grey',
       completed: false,
       edited: false,
       star: false,
@@ -204,28 +233,30 @@ function TodoApp() {
       {/* 可控的表單元素，value對應到狀態，onChange對應到設定狀態 */}
       <div className="wrap mx-auto">
         <div className="groupRow d-flex justify-content-between">
-          {groupType.map((group) => {
+          {groupType.map((group,i) => {
             return (
               <div
                 className="group d-flex justify-content-center align-items-center"
-                key={group}
-                style={{ borderBottomColor: group }}
+                key={i}
+                style={{ borderBottomColor: group.color }}
+                onClick={()=>handelFilter(group.group, todos)}
               >
                 <div
                   className="circle"
-                  style={{ backgroundColor: group }}
+                  style={{ backgroundColor: group.color }}
                 ></div>
               </div>
             )
           })}
-          <div className="group">
+          <div className="group"
+            onClick={()=>handelFilter('star', todos)}>
             <div className="groupStar">
-                <img src={star} alt="" />
+              <img src={star} alt="" />
             </div>
           </div>
         </div>
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
           classes={classes}
