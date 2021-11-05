@@ -7,6 +7,7 @@ import cyan from '@material-ui/core/colors/cyan'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import green from '@material-ui/core/colors/green'
 import red from '@material-ui/core/colors/red'
+import star from '../images/star.svg'
 
 function TodoApp() {
   const [todoInput, setTodoInput] = useState('')
@@ -15,7 +16,7 @@ function TodoApp() {
     grey, cyan, deepOrange, green, red
   */
   const groupType = [
-    grey[300],
+    grey[400],
     cyan[300],
     deepOrange[300],
     green[300],
@@ -158,7 +159,6 @@ function TodoApp() {
     }
   }
 
-
   // 【 1-input框新增功能 】
   // const handleAddNew = (e) => {
   //   if (e.key === 'Enter') {
@@ -207,7 +207,7 @@ function TodoApp() {
           {groupType.map((group) => {
             return (
               <div
-                className="group"
+                className="group d-flex justify-content-center align-items-center"
                 key={group}
                 style={{ borderBottomColor: group }}
               >
@@ -218,6 +218,11 @@ function TodoApp() {
               </div>
             )
           })}
+          <div className="group">
+            <div className="groupStar">
+                <img src={star} alt="" />
+            </div>
+          </div>
         </div>
         <TodoList
           todos={todos}
