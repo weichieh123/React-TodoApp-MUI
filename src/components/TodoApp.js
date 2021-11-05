@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import TodoAddForm from './TodoAddForm'
 import TodoList from './TodoList'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,29 +13,30 @@ import _ from 'lodash'
 function TodoApp() {
   const [todoInput, setTodoInput] = useState('')
   const [filteredTodos, setFilteredTodos] = useState([])
+  const [filteredGroup, setFilteredGroup] = useState('grey')
 
   // grey, cyan, deepOrange, green, red
   const groupType = [
-      {
-        group: 'grey',
-        color: grey[400],
-      },
-      {
-        group: 'cyan',
-        color: cyan[300],
-      },
-      {
-        group: 'deepOrange',
-        color: deepOrange[300],
-      },
-      {
-        group: 'green',
-        color: green[300],
-      },
-      {
-        group: 'red',
-        color: red[300],
-      }, 
+    {
+      group: 'grey',
+      color: grey[400],
+    },
+    {
+      group: 'cyan',
+      color: cyan[300],
+    },
+    {
+      group: 'deepOrange',
+      color: deepOrange[300],
+    },
+    {
+      group: 'green',
+      color: green[300],
+    },
+    {
+      group: 'red',
+      color: red[300],
+    },
   ]
   const useStyles = makeStyles((theme) => ({
     grey: {
@@ -130,25 +131,22 @@ function TodoApp() {
     },
   ])
 
-
-
-  const handelFilter = (filterGroup, todos) => {
-      if(filterGroup==='star'){
-        setFilteredTodos(_.filter(todos, {star: true}))
-      }
-      else {
-          setFilteredTodos(_.filter(todos, {group: filterGroup}))
-      }
+  const useForceUpdate = () => {
+    const [value, setValue] = useState(0)
+    return () => setValue((value) => value + 1)
   }
 
-  useEffect(() => {
-    console.log('filter',filteredTodos)
-  }, [filteredTodos])
-  
-  
+  const handelFilter = (filterGroup, todos) => {
+    if (filterGroup === 'star') {
+      setFilteredTodos(_.filter(todos, { star: true }))
+    } else {
+      setFilteredTodos(_.filter(todos, { group: filterGroup }))
+      setFilteredGroup(filterGroup)
+    }
+  }
+
   const handleUpdate = (id, update, editedText) => {
     const newTodos = [...todos]
-
     const index = newTodos.findIndex((item) => item.id === id)
 
     switch (update) {
@@ -209,14 +207,14 @@ function TodoApp() {
     const newTodoItem = {
       id: idNum + 1,
       text: todoInput,
-      group: 'grey',
+      group: filteredGroup,
       completed: false,
       edited: false,
       star: false,
       showBtn: false,
     }
 
-    const newTodos = [newTodoItem, ...todos]
+    const newTodos = [...todos, newTodoItem]
     setTodos(newTodos)
     setTodoInput('')
   }
@@ -233,13 +231,13 @@ function TodoApp() {
       {/* 可控的表單元素，value對應到狀態，onChange對應到設定狀態 */}
       <div className="wrap mx-auto">
         <div className="groupRow d-flex justify-content-between">
-          {groupType.map((group,i) => {
+          {groupType.map((group, i) => {
             return (
               <div
                 className="group d-flex justify-content-center align-items-center"
                 key={i}
                 style={{ borderBottomColor: group.color }}
-                onClick={()=>handelFilter(group.group, todos)}
+                onClick={() => handelFilter(group.group, todos)}
               >
                 <div
                   className="circle"
@@ -248,18 +246,17 @@ function TodoApp() {
               </div>
             )
           })}
-          <div className="group"
-            onClick={()=>handelFilter('star', todos)}>
+          <div className="group" onClick={() => handelFilter('star', todos)}>
             <div className="groupStar">
               <img src={star} alt="" />
             </div>
           </div>
         </div>
         <TodoList
-          todos={filteredTodos}
-          handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
-          classes={classes}
+        todos={filteredTodos}
+        handleDelete={handleDelete}
+        handleUpdate={handleUpdate}
+        classes={classes}
         />
         <TodoAddForm
           todoInput={todoInput}
