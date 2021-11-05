@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import ellipsis from '../images/ellipsis.svg'
@@ -8,26 +8,48 @@ import star from '../images/star.svg'
 // https://stackoverflow.com/questions/61053564/react-material-ui-and-color-warning
 // https://v3.mui.com/demos/selection-controls/
 // https://sites.google.com/im.fju.edu.tw/web/react/material-ui
-function TodoItem({ todoItem, handleDelete, handleUpdate, classes}) {
-  
+function TodoItem({ todoItem, handleDelete, handleUpdate, classes }) {
+  const [input, setInput] = useState(todoItem.text)
+  const keyEnter = (e) => {
+    if (e.keyCode === 13) {
+      handleUpdate(todoItem.id, 'editedSave', input)
+    }
+  }
+
   return (
     <>
       <div id="todoItem" className="todoItem d-flex align-items-center ">
-       <FormControlLabel
-        control={
-          <Checkbox
-            checked={todoItem.completed}
-            onChange={() => handleUpdate(todoItem.id, 'completed')}
-            value="checked"
-            classes={{
-              root: classes[todoItem.group],
-              checked: classes.checked,
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={todoItem.completed}
+              onChange={() => handleUpdate(todoItem.id, 'completed')}
+              value="checked"
+              classes={{
+                root: classes[todoItem.group],
+                checked: classes.checked,
+              }}
+            />
+          }
+        />
+        {todoItem.edited && (
+          <input
+            type="text"
+            value={input}
+            onKeyDown={keyEnter}
+            onChange={(e) => {
+              setInput(e.target.value)
             }}
+            autoFocus
           />
-        }
-       />
-        <div className="text-truncate">{todoItem.text}</div>
-        <div className="stared ml-auto d-flex justify-content-center align-items-center">
+        )}
+        <div
+          className="text-truncate flex-grow-1"
+          onClick={() => handleUpdate(todoItem.id, 'edited')}
+        >
+          {todoItem.text}
+        </div>
+        <div className="stared d-flex justify-content-center align-items-center">
           {todoItem.star && <img src={star} alt="" />}
         </div>
         <div className="fcnBtns d-flex">
