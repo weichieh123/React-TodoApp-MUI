@@ -17,7 +17,7 @@ function TodoAddForm(props) {
         placeholder="請輸入今日工作事項"
         // onKeyPress={handleAddNew}
       />
-      <button className="btn-info addBtn" type="submit" >確定</button>
+      <button className="btn-info addBtn" type="submit">確定</button>
       </form>
     </>
   )

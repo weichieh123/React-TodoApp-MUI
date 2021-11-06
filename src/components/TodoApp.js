@@ -8,12 +8,14 @@ import deepOrange from '@material-ui/core/colors/deepOrange'
 import green from '@material-ui/core/colors/green'
 import red from '@material-ui/core/colors/red'
 import star from '../images/star.svg'
+import plus from '../images/plus.svg'
 import _ from 'lodash'
 
 function TodoApp() {
   const [todoInput, setTodoInput] = useState('')
   const [filteredTodos, setFilteredTodos] = useState([])
   const [filteredGroup, setFilteredGroup] = useState('grey')
+  const [showAddForm, setShowAddForm] = useState(false)
 
   // grey, cyan, deepOrange, green, red
   const groupType = [
@@ -218,6 +220,7 @@ function TodoApp() {
     setTodos(newTodos)
     setTodoInput('')
     handelFilter(filteredGroup, newTodos)
+    setShowAddForm(false)
   }
 
   // 【 2-刪除功能 】
@@ -264,12 +267,20 @@ function TodoApp() {
         handleUpdate={handleUpdate}
         classes={classes}
         />
-        <TodoAddForm
-          todoInput={todoInput}
-          setTodoInput={setTodoInput}
-          // handleAddNew={handleAddNew}
-          handleAddBtn={handleAddBtn}
-        />
+        
+        {showAddForm ? 
+          <TodoAddForm
+            todoInput={todoInput}
+            setTodoInput={setTodoInput}
+            // handleAddNew={handleAddNew}
+            handleAddBtn={handleAddBtn}
+            setShowAddForm={setShowAddForm}
+          />
+          :
+          <div className="icon-add mx-auto mt-2" onClick={()=>setShowAddForm(true)}>
+            <img src={plus} alt="" />
+          </div>
+        }
       </div>
     </>
   )
