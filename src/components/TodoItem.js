@@ -18,7 +18,7 @@ function TodoItem({ todoItem, handleDelete, handleUpdate, classes }) {
 
   return (
     <>
-      <div id="todoItem" className="todoItem d-flex align-items-center ">
+      <div id="todoItem" className="todoItem d-flex align-items-center">
         <FormControlLabel
           control={
             <Checkbox
@@ -33,22 +33,26 @@ function TodoItem({ todoItem, handleDelete, handleUpdate, classes }) {
           }
         />
         {todoItem.edited && (
-          <input
-            type="text"
-            value={input}
-            onKeyDown={keyEnter}
-            onChange={(e) => {
-              setInput(e.target.value)
-            }}
-            autoFocus
-          />
+          <div className="flex-grow-1">
+            <input
+              type="text"
+              value={input}
+              onKeyDown={keyEnter}
+              onChange={(e) => {
+                setInput(e.target.value)
+              }}
+              autoFocus
+            />
+          </div>
         )}
-        <div
-          className="text-truncate flex-grow-1"
-          onClick={() => handleUpdate(todoItem.id, 'edited')}
-        >
-          {todoItem.text}
-        </div>
+        {!todoItem.edited && 
+          <div
+            className="text-truncate flex-grow-1"
+            onClick={() => handleUpdate(todoItem.id, 'edited')}
+          >
+            {todoItem.text}
+          </div>
+        }
         <div className="stared d-flex justify-content-center align-items-center">
           {todoItem.star && <img src={star} alt="" />}
         </div>
