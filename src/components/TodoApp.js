@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TodoAddForm from './TodoAddForm'
 import TodoList from './TodoList'
 import { makeStyles } from '@material-ui/core/styles'
@@ -217,13 +217,19 @@ function TodoApp() {
     const newTodos = [...todos, newTodoItem]
     setTodos(newTodos)
     setTodoInput('')
+    handelFilter(filteredGroup, newTodos)
   }
 
   // 【 2-刪除功能 】
   const handleDelete = (id) => {
     const newTodos = todos.filter((item) => item.id !== id)
     setTodos(newTodos)
+    handelFilter(filteredGroup, newTodos)
   }
+
+  useEffect(() => {
+    handelFilter('grey', todos )
+  }, [])
 
   return (
     <>
