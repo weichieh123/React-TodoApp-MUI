@@ -1,7 +1,7 @@
 import React from 'react'
 
 function TodoAddForm(props) {
-  const { todoInput, setTodoInput, handleAddNew, handleAddBtn } = props
+  const { todoInput, setTodoInput, handleAddBtn } = props
 
   return (
     <>

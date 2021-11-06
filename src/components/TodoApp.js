@@ -133,11 +133,6 @@ function TodoApp() {
     },
   ])
 
-  const useForceUpdate = () => {
-    const [value, setValue] = useState(0)
-    return () => setValue((value) => value + 1)
-  }
-
   const handelFilter = (filterGroup, todos) => {
     if (filterGroup === 'star') {
       setFilteredTodos(_.filter(todos, { star: true }))
@@ -232,6 +227,7 @@ function TodoApp() {
 
   useEffect(() => {
     handelFilter('grey', todos )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
