@@ -42,6 +42,7 @@ function TodoItem({ todoItem, handleDelete, handleUpdate, classes }) {
                 setInput(e.target.value)
               }}
               autoFocus
+              onBlur={() => handleUpdate(todoItem.id, 'edited')}
             />
           </div>
         )}
