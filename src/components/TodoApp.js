@@ -68,23 +68,25 @@ function TodoApp() {
   // 【 1-input框新增功能 】
   const handleAddBtn = (e) => {
     e.preventDefault()
-    console.log('todoInput', todoInput)
-    console.log('todos len', todos.length)
-    let idNum = todos.length
-    const newTodoItem = {
-      id: idNum + 1,
-      text: todoInput,
-      group: filteredGroup,
-      completed: false,
-      edited: false,
-      star: false,
-      showBtn: false,
+    // console.log('todoInput', todoInput)
+    // console.log('todos len', todos.length)
+    if(todoInput) {
+      let idNum = todos.length
+      const newTodoItem = {
+        id: idNum + 1,
+        text: todoInput,
+        group: filteredGroup,
+        completed: false,
+        edited: false,
+        star: false,
+        showBtn: false,
+      }
+      const newTodos = [...todos, newTodoItem]
+      setTodos(newTodos)
+      setTodoInput('')
+      handelFilter(filteredGroup, newTodos)
+      setShowAddForm(false)
     }
-
-    const newTodos = [...todos, newTodoItem]
-    setTodos(newTodos)
-    setTodoInput('')
-    handelFilter(filteredGroup, newTodos)
     setShowAddForm(false)
   }
 

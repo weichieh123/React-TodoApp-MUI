@@ -1,7 +1,7 @@
 import React from 'react'
 
 function TodoAddForm(props) {
-  const { todoInput, setTodoInput, handleAddBtn } = props
+  const { todoInput, setTodoInput, handleAddBtn, setShowAddForm } = props
 
   return (
     <>
@@ -15,7 +15,7 @@ function TodoAddForm(props) {
         onChange={(e) => setTodoInput(e.target.value)}
         autoFocus
         placeholder="請輸入今日工作事項"
-        // onKeyPress={handleAddNew}
+        onBlur={()=>setShowAddForm(false)}
       />
       <button className="btn-info addBtn" type="submit">確定</button>
       </form>
