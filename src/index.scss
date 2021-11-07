@@ -15,18 +15,20 @@ h1 {
     background-color: #fff;
     padding: 10px;
     .group {
-      border-bottom: 2px solid #F4F791;
       .circle {
-        width: 25px;
+        width: 50px;
         height: 25px;
+        text-align: center;
+        color: #fff;
+        font-weight: 550;
         background-color: #fff;
-        border-radius: 50%;
-        margin: 5px 20px;
+        border-radius: 4px;
+        margin: 5px 15px;
       }
       .groupStar {
         width: 30px;
         height: 30px;
-        margin: 5px 20px;
+        margin: 5px 15px;
         img {
           width: 100%;
         }
@@ -119,4 +121,7 @@ input {
   text-align: center;
   font-size: 16px;
   color: #666;
+}
+.cursor-pointer {
+  cursor: pointer;
 }

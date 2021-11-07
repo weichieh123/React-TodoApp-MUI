@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TodoAddForm from './TodoAddForm'
 import TodoList from './TodoList'
-import { makeStyles } from '@material-ui/core/styles'
-import grey from '@material-ui/core/colors/grey'
-import cyan from '@material-ui/core/colors/cyan'
-import deepOrange from '@material-ui/core/colors/deepOrange'
-import green from '@material-ui/core/colors/green'
-import red from '@material-ui/core/colors/red'
+import { groupType, useStyles, data } from '../data'
 import star from '../images/star.svg'
 import plus from '../images/plus.svg'
 import _ from 'lodash'
@@ -16,126 +11,13 @@ function TodoApp() {
   const [filteredTodos, setFilteredTodos] = useState([])
   const [filteredGroup, setFilteredGroup] = useState('grey')
   const [showAddForm, setShowAddForm] = useState(false)
-
-  // grey, cyan, deepOrange, green, red
-  const groupType = [
-    {
-      group: 'grey',
-      color: grey[400],
-    },
-    {
-      group: 'cyan',
-      color: cyan[300],
-    },
-    {
-      group: 'deepOrange',
-      color: deepOrange[300],
-    },
-    {
-      group: 'green',
-      color: green[300],
-    },
-    {
-      group: 'red',
-      color: red[300],
-    },
-  ]
-  const useStyles = makeStyles((theme) => ({
-    grey: {
-      color: grey[600],
-      '&$checked': {
-        color: grey[500],
-      },
-    },
-    cyan: {
-      color: cyan[600],
-      '&$checked': {
-        color: cyan[500],
-      },
-    },
-    deepOrange: {
-      color: deepOrange[600],
-      '&$checked': {
-        color: deepOrange[500],
-      },
-    },
-    green: {
-      color: green[600],
-      '&$checked': {
-        color: green[500],
-      },
-    },
-    red: {
-      color: red[600],
-      '&$checked': {
-        color: red[500],
-      },
-    },
-    checked: {},
-  }))
   const classes = useStyles()
-
-  // 【 0-待辨事項每個的物件值】
-  // todo = {
-  //   id: 1,
-  //   text: 'No1',
-  //   group: 'grey/cyan/deepOrange/green/red',
-  //   completed: false,
-  //   edited: false,
-  //   star: false,
-  //   showBtn: false,
-  // },
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: 'No1',
-      group: 'grey',
-      completed: false,
-      edited: false,
-      star: false,
-      showBtn: false,
-    },
-    {
-      id: 2,
-      text: 'No2',
-      group: 'cyan',
-      completed: false,
-      edited: false,
-      star: false,
-      showBtn: false,
-    },
-    {
-      id: 3,
-      text: 'No3',
-      group: 'deepOrange',
-      completed: false,
-      edited: false,
-      star: false,
-      showBtn: false,
-    },
-    {
-      id: 4,
-      text: 'No4',
-      group: 'green',
-      completed: false,
-      edited: false,
-      star: false,
-      showBtn: false,
-    },
-    {
-      id: 5,
-      text: 'No5',
-      group: 'red',
-      completed: false,
-      edited: false,
-      star: false,
-      showBtn: false,
-    },
-  ])
+  const [todos, setTodos] = useState(data)
 
   const handelFilter = (filterGroup, todos) => {
     if (filterGroup === 'star') {
       setFilteredTodos(_.filter(todos, { star: true }))
+      setFilteredGroup('star')
     } else {
       setFilteredTodos(_.filter(todos, { group: filterGroup }))
       setFilteredGroup(filterGroup)
@@ -184,18 +66,6 @@ function TodoApp() {
   }
 
   // 【 1-input框新增功能 】
-  // const handleAddNew = (e) => {
-  //   if (e.key === 'Enter') {
-  //     const newTodoItem = {
-  //       id: +new Date(),
-  //       text: e.target.value
-  //     }
-
-  //     const newTodos = [newTodoItem, ...todos]
-  //     setTodos(newTodos)
-  //     setTodoInput('')
-  //   }
-  // }
   const handleAddBtn = (e) => {
     e.preventDefault()
     console.log('todoInput', todoInput)
@@ -239,19 +109,28 @@ function TodoApp() {
           {groupType.map((group, i) => {
             return (
               <div
-                className="group d-flex justify-content-center align-items-center"
+                className="group d-flex justify-content-center align-items-center cursor-pointer"
                 key={i}
-                style={{ borderBottomColor: group.color }}
+                style={{ 
+                  borderBottom:
+                  group.group===filteredGroup ? '2px solid'+group.color : 'none' 
+                  }}
                 onClick={() => handelFilter(group.group, todos)}
               >
                 <div
                   className="circle"
                   style={{ backgroundColor: group.color }}
-                ></div>
+                >{group.text}</div>
               </div>
             )
           })}
-          <div className="group" onClick={() => handelFilter('star', todos)}>
+          <div 
+            className="group cursor-pointer" 
+            style={{
+              borderBottom:
+              filteredGroup==='star' ? '2px solid #F4F791': 'none'
+            }}
+            onClick={() => handelFilter('star', todos)}>
             <div className="groupStar">
               <img src={star} alt="" />
             </div>
@@ -268,7 +147,6 @@ function TodoApp() {
           <TodoAddForm
             todoInput={todoInput}
             setTodoInput={setTodoInput}
-            // handleAddNew={handleAddNew}
             handleAddBtn={handleAddBtn}
             setShowAddForm={setShowAddForm}
           />
