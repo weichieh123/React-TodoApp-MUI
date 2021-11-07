@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/React-TodoApp-MUI/static/css/main.3c474113.chunk.css",
+    "main.js": "/React-TodoApp-MUI/static/js/main.a40cf1f4.chunk.js",
+    "main.js.map": "/React-TodoApp-MUI/static/js/main.a40cf1f4.chunk.js.map",
+    "runtime-main.js": "/React-TodoApp-MUI/static/js/runtime-main.dfe7963b.js",
+    "runtime-main.js.map": "/React-TodoApp-MUI/static/js/runtime-main.dfe7963b.js.map",
+    "static/js/2.50bd7f3f.chunk.js": "/React-TodoApp-MUI/static/js/2.50bd7f3f.chunk.js",
+    "static/js/2.50bd7f3f.chunk.js.map": "/React-TodoApp-MUI/static/js/2.50bd7f3f.chunk.js.map",
+    "index.html": "/React-TodoApp-MUI/index.html",
+    "static/css/main.3c474113.chunk.css.map": "/React-TodoApp-MUI/static/css/main.3c474113.chunk.css.map",
+    "static/js/2.50bd7f3f.chunk.js.LICENSE.txt": "/React-TodoApp-MUI/static/js/2.50bd7f3f.chunk.js.LICENSE.txt",
+    "static/media/ellipsis.373f452c.svg": "/React-TodoApp-MUI/static/media/ellipsis.373f452c.svg",
+    "static/media/plus.3ac5c8bd.svg": "/React-TodoApp-MUI/static/media/plus.3ac5c8bd.svg",
+    "static/media/star.5953b9c7.svg": "/React-TodoApp-MUI/static/media/star.5953b9c7.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.dfe7963b.js",
+    "static/js/2.50bd7f3f.chunk.js",
+    "static/css/main.3c474113.chunk.css",
+    "static/js/main.a40cf1f4.chunk.js"
+  ]
+}
