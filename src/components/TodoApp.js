@@ -151,7 +151,7 @@ function TodoApp() {
             setShowAddForm={setShowAddForm}
           />
           :
-          <div className="icon-add mx-auto mt-2" onClick={()=>setShowAddForm(true)}>
+          <div className="icon-add mx-auto mt-3 cursor-pointer" onClick={()=>setShowAddForm(true)}>
             <img src={plus} alt="" />
           </div>
         }
